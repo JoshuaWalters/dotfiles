@@ -1,45 +1,49 @@
 #!/usr/bin/env bash
 set -e
+sudo -v
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Deploy user configurations
 echo "==> Deploying User Configurations..."
+PACKAGES=(hypr nvim backgrounds)
 
-# Clean up default hypr config if present and not already a symlink
-if [ -d "$HOME/.config/hypr" ] && [ ! -L "$HOME/.config/hypr" ]; then
-    echo "Backing up default Hyprland config..."
-    mv "$HOME/.config/hypr" "$HOME/.config/hypr.backup.$(date +%s)"
-fi
+convert_to_backup_if_exists() {
+  local target="$1"
+  if [ -e "$target" ] && [ ! -L "$target" ]; then
+    echo "    Backing up ${target}..."
+    mv "$target" "${target}.backup.$(date +%s)"
+  fi
+}
 
-# Clean up default Pictures/backgrounds directory if present and not a symlink
-if [ -d "$HOME/Pictures/backgrounds" ] && [ ! -L "$HOME/Pictures/backgrounds" ]; then
-    echo "Backing up existing ~/Pictures/backgrounds..."
-    mv "$HOME/Pictures/backgrounds" "$HOME/Pictures/backgrounds.backup.$(date +%s)"
-fi
+for pkg in "${PACKAGES[@]}"; do
+  target="$HOME/.config/$pkg"
+  [ "$pkg" = "backgrounds" ] && target="$HOME/Pictures/backgrounds"
+  convert_to_backup_if_exists "$target"
+done
 
-# Link User Configurations via Stow
 mkdir -p "$HOME/.config" "$HOME/Pictures"
-stow -d "$DOTFILES_DIR" -t "$HOME" hypr
-stow -d "$DOTFILES_DIR" -t "$HOME" backgrounds
+stow -d "$DOTFILES_DIR" -t "$HOME" "${PACKAGES[@]}"
 
+# Deploy system configurations 
 echo "==> Deploying System Configurations..."
 
-# Deploy SDDM theme and drop-in configurations
-sudo mkdir -p /usr/share/sddm/themes
-sudo cp -r "$DOTFILES_DIR/sddm/sddm-astronaut-theme-custom" /usr/share/sddm/themes/
+if [ -d "$DOTFILES_DIR/sddm/sddm-astronaut-theme-custom" ]; then
+    sudo mkdir -p /usr/share/sddm/themes
+    sudo cp -r "$DOTFILES_DIR/sddm/sddm-astronaut-theme-custom" /usr/share/sddm/themes/
+fi
 
 if [ -d "$DOTFILES_DIR/sddm/sddm.conf.d" ]; then
     sudo mkdir -p /etc/sddm.conf.d
-    sudo cp -r "$DOTFILES_DIR/sddm/sddm.conf.d"/* /etc/sddm.conf.d/
+    sudo cp -r "$DOTFILES_DIR/sddm/sddm.conf.d/." /etc/sddm.conf.d/
 fi
 
 if [ -f "$DOTFILES_DIR/sddm/sddm.conf" ]; then
     sudo cp "$DOTFILES_DIR/sddm/sddm.conf" /etc/sddm.conf
 fi
 
-# Deploy System Assets
 if [ -d "$DOTFILES_DIR/system-assets" ]; then
-    sudo cp -r "$DOTFILES_DIR/system-assets"/* /
+    sudo cp -r "$DOTFILES_DIR/system-assets/." /
 fi
 
 echo "Done. All configs and system assets have been deployed."
