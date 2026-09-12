@@ -46,4 +46,6 @@ if [ -d "$DOTFILES_DIR/system-assets" ]; then
     sudo cp -r "$DOTFILES_DIR/system-assets/." /
 fi
 
+sudo pacman -S --noconfirm tree-sitter-cli
+
 echo "Done. All configs and system assets have been deployed."
