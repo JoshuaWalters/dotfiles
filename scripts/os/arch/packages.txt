@@ -1,0 +1,7 @@
+bitwarden
+gimp
+gparted
+neovim
+steam
+tree-sitter-cli
+vesktop-bin
