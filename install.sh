@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
+
+# Some applications don't function when run as root
+if [ "$EUID" -eq 0 ]; then
+    echo "Please do not run this script as root." >&2
+    exit 1
+fi
+
 sudo -v
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
