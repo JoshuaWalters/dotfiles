@@ -3,5 +3,6 @@ gimp
 gparted
 neovim
 steam
+stow
 tree-sitter-cli
 vesktop-bin
