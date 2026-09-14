@@ -8,6 +8,7 @@ return {
             "bash",
             "lua",
             "rust",
+            "toml",
         }
     end,
 }
