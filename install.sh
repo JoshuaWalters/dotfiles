@@ -13,7 +13,6 @@ sudo -v
 
 bash "$DOTFILES_DIR/scripts/install-packages-dispatcher.sh"
 bash "$DOTFILES_DIR/stow/deploy.sh"
-# "$DOTFILES_DIR/scripts/deploy-system.sh"
-# ^ This line has been commented out until SDDM deployment is reworked!
+bash "$DOTFILES_DIR/system/deploy.sh"
 
 echo "Done. All tasks executed successfully."

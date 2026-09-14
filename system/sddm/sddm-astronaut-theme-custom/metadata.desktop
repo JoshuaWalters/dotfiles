@@ -1,6 +1,6 @@
 [SddmGreeterTheme]
-Name=sddm-astronaut-theme
-Description=sddm-astronaut-theme
+Name=sddm-astronaut-theme-custom
+Description=sddm-astronaut-theme-custom
 Author=keyitdev
 Website=https://github.com/Keyitdev/sddm-astronaut-theme
 License=GPL-3.0-or-later
