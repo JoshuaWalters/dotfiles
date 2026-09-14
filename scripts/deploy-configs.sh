@@ -24,4 +24,10 @@ done
 mkdir -p "$HOME/.config" "$HOME/Pictures"
 stow -d "$DOTFILES_DIR" -t "$HOME" "${STOW_PACKAGES[@]}"
 
+# This is just temporary, we need to instad
+# 1. Check that the user is using hyprland
+# 2. Stow the hyprland config if so
+# 3. Then hyprctl reload if so
+hyprctl reload
+
 echo "    User configurations linked successfully."
