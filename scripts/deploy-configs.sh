@@ -5,7 +5,7 @@ DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 
 echo "==> Deploying User Configurations..."
 
-STOW_PACKAGES=(hypr nvim backgrounds)
+STOW_PACKAGES=(backgrounds hypr noctalia nvim)
 
 convert_to_backup_if_exists() {
     local target="$1"
@@ -29,5 +29,6 @@ stow -d "$DOTFILES_DIR" -t "$HOME" "${STOW_PACKAGES[@]}"
 # 2. Stow the hyprland config if so
 # 3. Then hyprctl reload if so
 hyprctl reload
+noctalia mst config-reload # This will also need changing!
 
 echo "    User configurations linked successfully."
