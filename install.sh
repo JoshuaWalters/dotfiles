@@ -12,7 +12,7 @@ export DOTFILES_DIR
 sudo -v
 
 bash "$DOTFILES_DIR/scripts/install-packages-dispatcher.sh"
-bash "$DOTFILES_DIR/stow/stow.sh"
+bash "$DOTFILES_DIR/stow/deploy.sh"
 # "$DOTFILES_DIR/scripts/deploy-system.sh"
 # ^ This line has been commented out until SDDM deployment is reworked!
 
