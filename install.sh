@@ -6,13 +6,14 @@ if [ "$EUID" -eq 0 ]; then
     exit 1
 fi
 
-sudo -v
-
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 export DOTFILES_DIR
 
-"$DOTFILES_DIR/scripts/install-packages-dispatcher.sh"
-"$DOTFILES_DIR/scripts/deploy-configs.sh"
-"$DOTFILES_DIR/scripts/deploy-system.sh"
+sudo -v
+
+bash "$DOTFILES_DIR/scripts/install-packages-dispatcher.sh"
+bash "$DOTFILES_DIR/stow/stow.sh"
+# "$DOTFILES_DIR/scripts/deploy-system.sh"
+# ^ This line has been commented out until SDDM deployment is reworked!
 
 echo "Done. All tasks executed successfully."
