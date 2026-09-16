@@ -10,8 +10,8 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
 echo "==> Detecting operating system..."
 source "$DOTFILES_DIR/scripts/get-os-ids.sh"
-echo "    ID: $OS_ID"
-echo "    ID_LIKE: ${OS_ID_LIKE:-none}"
+echo "ID: $OS_ID"
+echo "ID_LIKE: ${OS_ID_LIKE:-none}"
 
 resolve_package_asset() {
     local filename="$1"
