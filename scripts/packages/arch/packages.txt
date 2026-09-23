@@ -1,8 +1,12 @@
+base-devel
 bitwarden
 gimp
 github-cli
 gparted
 neovim
+nodejs
+openssl
+pnpm
 qt6-5compat
 qt6-svg
 rustup
@@ -10,3 +14,5 @@ steam
 stow
 tree-sitter-cli
 vesktop-bin
+webkit2gtk-4.1
+zettlr

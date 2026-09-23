@@ -25,7 +25,7 @@ fi
 
 echo "Installing packages: $*"
 
-if ! paru -S --needed --noconfirm "$@"; then
+if ! paru -Syu --needed --noconfirm "$@"; then
     echo "Some packages failed to install." >&2
     exit 1
 fi
