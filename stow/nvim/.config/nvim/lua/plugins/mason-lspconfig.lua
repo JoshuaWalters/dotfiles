@@ -4,6 +4,8 @@ return {
         ensure_installed = {
             "lua_ls",
             "rust_analyzer",
+            "svelte",
+            "vtsls",
         },
     },
     dependencies = {

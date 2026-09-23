@@ -5,6 +5,7 @@ github-cli
 gparted
 neovim
 nodejs
+npm
 openssl
 pnpm
 qt6-5compat
